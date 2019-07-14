@@ -1,0 +1,9 @@
+# c
+c/build/
+c/out/
+c/tmp/
+c/*.plist
+
+# rust
+rust/target
+rust/**/*.rs.bk
