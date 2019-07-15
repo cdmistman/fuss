@@ -49,7 +49,7 @@ impl Evaluatable for bool {
 }
 
 impl Evaluatable for i32 {
-	fn evaluate()(&self) -> i32 {
-		self
+	fn evaluate(&self) -> i32 {
+		*self
 	}
 }
