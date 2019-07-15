@@ -41,7 +41,7 @@ pub struct Then {
 impl Evaluatable for bool {
 	fn evaluate(&self) -> i32 {
 		let mut res = 0;
-		if self != true {
+		if *self != true {
 			res = 1;
 		};
 		res
