@@ -7,3 +7,4 @@ c/*.plist
 # rust
 rust/target
 rust/**/*.rs.bk
+rust/Cargo.lock
