@@ -1,7 +1,7 @@
 use libc::pid_t;
 
 use nix::unistd::{ execvp, fork, ForkResult };
-use nix::sys::wait::waitpid;
+use nix::sys::wait::{ waitpid, WaitStatus };
 
 use std::borrow::Borrow;
 use std::ffi::CString;
@@ -13,7 +13,6 @@ pub trait Evaluatable {
 pub struct ExecBin {
 	bin: Box<CString>,
 	args: Box<[CString]>,
-	is_background: bool,
 	input_file: Option<Box<CString>>,
 	output_file: Option<Box<CString>>,
 }
@@ -36,6 +35,10 @@ pub struct Or {
 pub struct Then {
 	left: Box<Evaluatable>,
 	right: Box<Evaluatable>,
+}
+
+pub struct Background {
+	child: Box<Evaluatable>,
 }
 
 impl Evaluatable for bool {
