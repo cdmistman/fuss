@@ -17,9 +17,21 @@ pub struct ExecBin {
 	output_file: Option<Box<CString>>,
 }
 
+impl Evaluatable for ExecBin {
+	fn evaluate(&self) -> i32 {
+		0
+	}
+}
+
 pub struct Pipe {
 	from: Box<Evaluatable>,
 	to: Box<Evaluatable>,
+}
+
+impl Evaluatable for Pipe {
+	fn evaluate(&self) -> i32 {
+		0
+	}
 }
 
 pub struct And {
@@ -27,9 +39,21 @@ pub struct And {
 	right: Box<Evaluatable>,
 }
 
+impl Evaluatable for And {
+	fn evaluate(&self) -> i32 {
+		0
+	}
+}
+
 pub struct Or {
 	left: Box<Evaluatable>,
 	right: Box<Evaluatable>,
+}
+
+impl Evaluatable  for Or {
+	fn evaluate(&self) -> i32 {
+		0
+	}
 }
 
 pub struct Then {
@@ -37,8 +61,20 @@ pub struct Then {
 	right: Box<Evaluatable>,
 }
 
+impl Evaluatable for Then {
+	fn evaluate(&self) -> i32 {
+		0
+	}
+}
+
 pub struct Background {
 	child: Box<Evaluatable>,
+}
+
+impl Evaluatable for Background {
+	fn evaluate(&self) -> i32 {
+		0
+	}
 }
 
 impl Evaluatable for bool {
