@@ -1,30 +1,22 @@
-CC        := clang
+.PHONY: all start build done test clean
 
-SRC_DIR   := ./src
-OUT_DIR   := ./out
+all: start build done
 
-BIN       := $(OUT_DIR)/fuss
-SRCS      := $(wildcard $(SRC_DIR)/*.c)
-OBJS      := $(patsubst $(SRC_DIR)/%.c,$(OUT_DIR)/%.o,$(SRCS))
+start:
+	@echo "===== BUILDING FUSS-C ====="
 
-CFLAGS    :=
-LDLIBS    :=
+build:
+	mkdir -p build
+	cd build; cmake ../src; make
 
-$(BIN): $(OBJS)
-	mkdir -p $(OUT_DIR)
-	$(CC) -o $@ $(OBJS) $(LDLIBS)
+done:
+	@echo "===== DONE BUILDING FUSS-C ====="
+	@echo
 
-$(OUT_DIR)/%.o : $(SRC_DIR)/%.c $(SRC_DIR)/$(wildcard *.h)
-	mkdir -p $(OUT_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-clean:
-	rm -rf $(OUT_DIR) tmp/ *.plist *.out
-
-test: $(BIN)
+test: all 
+	rm -rdf tmp
 	perl test.pl
 
-valgrind: $(BIN)
-	valgrind -q --leak-check=full --log-file=./out/valgrind.out $(BIN)
+clean:
+	rm -rdf build tmp *.plist
 
-.PHONY: clean test
