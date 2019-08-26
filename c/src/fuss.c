@@ -6,8 +6,8 @@
 
 #include <sys/wait.h>
 
-#include "cstack.h"
-#include "svec.h"
+#include "cstack/cstack.h"
+#include "svec/svec.h"
 
 #define FALSE 0
 #define TRUE 1
