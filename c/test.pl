@@ -6,10 +6,10 @@ use Test::Simple tests => 22;
 
 system("mkdir -p tmp");
 
-my $prompt = `./out/fuss < /dev/null`;
+my $prompt = `./build/fuss < /dev/null`;
 ok($prompt =~ /fuss\$/, "fuss\$ prompt");
 
-my $inter = `./out/fuss < tests/02-echo-twice.sh`;
+my $inter = `./build/fuss < tests/02-echo-twice.sh`;
 ok($inter =~ /fuss\$/, "show prompt interactively");
 $inter =~ s/fuss\$//;
 ok($inter =~ /fuss\$/, "show prompt interactively twice");
@@ -20,7 +20,7 @@ my @scripts = glob("tests/*.sh");
 
 for my $script (@scripts) {
     system("rm -f tmp/output");
-    system("timeout -k 5 10 ./out/fuss $script > tmp/output");
+    system("timeout -k 5 10 ./build/fuss $script > tmp/output");
 
     my $correct = $script;
     $correct =~ s/\.sh$/.out/;
@@ -52,8 +52,8 @@ sub clang_check {
 }
 
 sub valgrind() {
-    system(qq{timeout -k 5 10 valgrind -q --leak-check=full --log-file=out/valgrind.out ./out/fuss < tests/01-echo.sh > out/main.out});
-    return `cat -n out/valgrind.out` eq "";
+    system(qq{timeout -k 5 10 valgrind -q --leak-check=full --log-file=build/valgrind.out ./build/fuss < tests/01-echo.sh > build/main.out});
+    return `cat -n build/valgrind.out` eq "";
 }
 
 ok(clang_check(), "clang check");
