@@ -320,9 +320,7 @@ first_then(svec* cmd, long first_start, long semicolon_index, long then_end)
 long
 background(svec* cmd, long start, long op_index, long end)
 {
-	long cpid;
-	
-	if ((cpid = fork())) {
+	if ((fork())) {
 		if (op_index == end - 1) return TRUE;
 		return perform(cmd, op_index + 1, end);
 	} else {
